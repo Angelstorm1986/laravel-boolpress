@@ -21,6 +21,15 @@
             @enderror
         </div>
         <div class="form-group">
+            <h5>Tags</h5>
+            @foreach ($tags as $tag)
+                <div class="form-check-inline">
+                    <input type="checkbox" class="form-check-input" id="{{$tag->slug}}" name="tags[]" value="{{$tag->id}}" {{in_array($tag->id, old('tags', [])) ? 'checked' : ''}}>
+                    <label for="{{$tag->slug}}" class="form-check-label">{{$tag->name}}</label>
+                </div>
+            @endforeach
+        </div>
+        <div class="form-group">
             <label for="category" class="form-label">Category</label>
             <select name="category_id" id="category" class="form-control">
                 <option value="">Select category</option>
