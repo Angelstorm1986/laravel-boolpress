@@ -29,7 +29,6 @@
               @csrf
               @method('DELETE')
               <button type="submit"
-                  onclick="boolpress.openModal(event, {{ $post->id }})"
                   class="btn btn-warning delete">Delete</button>
           </form>
       </div>
