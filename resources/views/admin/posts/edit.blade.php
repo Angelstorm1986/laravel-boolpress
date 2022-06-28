@@ -3,7 +3,7 @@
 @section('title', 'Modify Post')
 
 @section('content')
-    <form action="{{route('admin.posts.update', $post->id)}}" method="post">
+    <form action="{{route('admin.posts.update', $post->id)}}" method="post" enctype="multipart/form-data">
         @csrf
         @method('PUT')
         <div class="form-group">
@@ -23,8 +23,12 @@
         <div class="form-group">
             <h5>Tags</h5>
             @foreach ($tags as $tag)
-                <div class="form-check-inline">
-                    <input type="checkbox" class="form-check-input" id="{{$tag->slug}}" name="tags[]" value="{{$tag->id}}" {{in_array($tag->id, old('tags', [])) ? 'checked' : ''}}>
+                <div class="form-check form-check-inline">
+                    @if (old("tags"))
+                        <input type="checkbox" class="form-check-input" id="{{$tag->slug}}" name="tags[]" value="{{$tag->id}}" {{in_array( $tag->id, old("tags", []) ) ? 'checked' : ''}}>
+                    @else
+                        <input type="checkbox" class="form-check-input" id="{{$tag->slug}}" name="tags[]" value="{{$tag->id}}" {{$post->tags->contains($tag) ? 'checked' : ''}}>
+                    @endif
                     <label for="{{$tag->slug}}" class="form-check-label">{{$tag->name}}</label>
                 </div>
             @endforeach
@@ -37,6 +41,16 @@
                     <option value="{{$category->id}}" {{$category->id == old('category_id', $post->category_id) ? 'selected' : ''}}>{{$category->name}}</option>
                 @endforeach
             </select>
+        </div>
+        <div class="form-group">
+            @if ($post->image)
+                <img id="uploadPreview" width="100" src="{{asset("storage/{$post->image}")}}" alt="{{$post->title}}">
+            @endif
+            <label for="image">Aggiungi immagine</label>
+            <input type="file" id="image" name="image" onchange="boolpress.previewImage();">
+            @error('image')
+               <div class="alert alert-danger">{{ $message }}</div>
+            @enderror
         </div>
         <div class="form-check">
             <input type="checkbox" class="form-check-input" {{old('published', $post->published ) ? 'checked' : ''}} id="published" name="published">

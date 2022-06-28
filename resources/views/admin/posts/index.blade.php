@@ -4,7 +4,6 @@
 
 @section('content')
   <a href="{{route('admin.posts.create')}}" class="btn btn-primary">Create new Post</a>
-  <a href="{{route('admin.home')}}" class="btn btn-primary">Return to Home</a>
   <table class="table">
     <thead>
       <tr>
@@ -32,7 +31,7 @@
             <form action="{{route('admin.posts.destroy', $post->id)}}" method="post">
                 @csrf
                 @method('DELETE')
-                <button type="submit" class="btn btn-danger">Delete</button>
+                  <button type="submit" class="btn btn-danger">Delete</button>
             </form>
           </td>
         </tr>
