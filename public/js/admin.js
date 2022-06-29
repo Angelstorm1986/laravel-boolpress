@@ -37283,9 +37283,6 @@ window.boolpress = {
     reader.onload = function (event) {
       document.getElementById("uploadPreview").src = event.target.result;
     };
-  },
-  submitForm: function submitForm() {
-    this.currentForm.submit();
   }
 };
 

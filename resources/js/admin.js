@@ -14,8 +14,5 @@
         reader.onload = function (event) {
             document.getElementById("uploadPreview").src = event.target.result;
         };
-    },
-    submitForm(){
-        this.currentForm.submit();
     }
 }
