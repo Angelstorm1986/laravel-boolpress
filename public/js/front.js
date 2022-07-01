@@ -2090,8 +2090,38 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
-  name: 'HomeComponent'
+  name: 'HomeComponent',
+  data: function data() {
+    return {
+      categories: [],
+      posts: []
+    };
+  },
+  mounted: function mounted() {
+    var _this = this;
+
+    axios.get('/api/categories').then(function (res) {
+      _this.categories = res.data;
+    })["catch"](function (error) {
+      console.log(error);
+    });
+    axios.get('/api/posts/').then(function (res) {
+      _this.posts = res.data.slice(0, 3);
+    })["catch"](function (error) {
+      console.log(error);
+    });
+  }
 });
 
 /***/ }),
@@ -3780,18 +3810,42 @@ var render = function () {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _vm._m(0)
+  return _c("section", [
+    _c("div", { staticClass: "row" }, [
+      _c("div", { staticClass: "col-2" }, [
+        _c("nav", [
+          _c(
+            "ul",
+            { staticClass: "p-0 my-2" },
+            _vm._l(_vm.categories, function (category, index) {
+              return _c(
+                "li",
+                { key: index, staticClass: "my-2 bg-dark" },
+                [
+                  _c(
+                    "router-link",
+                    {
+                      attrs: {
+                        to: {
+                          name: "category",
+                          params: { slug: category.slug },
+                        },
+                      },
+                    },
+                    [_vm._v(_vm._s(category.name))]
+                  ),
+                ],
+                1
+              )
+            }),
+            0
+          ),
+        ]),
+      ]),
+    ]),
+  ])
 }
-var staticRenderFns = [
-  function () {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("section", [
-      _c("h1", { staticClass: "text-center py-5" }, [_vm._v("Home")]),
-    ])
-  },
-]
+var staticRenderFns = []
 render._withStripped = true
 
 
